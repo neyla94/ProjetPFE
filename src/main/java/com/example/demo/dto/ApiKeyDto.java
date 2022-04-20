@@ -58,4 +58,9 @@ public class ApiKeyDto {
 		this.apikeyValue = apikeyValue;
 	}
 
+	@Override
+	public String toString() {
+		return "ApiKeyDto [id=" + id + ", ipadress=" + ipadress + ", apikeyValue=" + apikeyValue + "]";
+	}
+
 }

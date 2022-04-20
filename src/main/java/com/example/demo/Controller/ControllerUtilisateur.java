@@ -41,9 +41,9 @@ public class ControllerUtilisateur {
 	}
 	@PostMapping("/validateApikey")
 	@ResponseBody
-	public void validateApikey(@RequestBody ApiKeyDto apikeydto) {
-		
-		apk.validateApi(apikeydto );
+	public String validateApikey(@RequestBody ApiKeyDto apikeydto) {
+		System.out.println(apikeydto.toString());
+		return apk.validateApi(apikeydto );
 	}
 
 }

@@ -29,34 +29,40 @@ public class Apikey1ServiceImpl implements Apikey1Service {
 
 	@Override
 	public String validateApi(ApiKeyDto ap) {
-		ApiKey apiToValidate = aprepo.findByApikeyValue(ap.getApikeyValue());
-		String s = "";
+		ApiKey apiToValidate = aprepo.getApiKey(ap.getApikeyValue());
+
 		if (apiToValidate != null) {
-			if (apiToValidate.getIpadress() != ap.getIpadress()) {
-				s = "IP not valid";
-				return s;
-			} else {
-				s = "is valid";
-				Utilisateur user = userrepo.getById(apiToValidate.getUtilisateur().getId());
-
-				if (user != null) {
-					String login = user.getUsername();
-					String psw = user.getPassword();
-
-					// auth method
-
-					return s =(login  + psw);
+			String s = "";
+			if (apiToValidate.getApikeyValue().equals(ap.getApikeyValue())) {
+				if (!apiToValidate.getIpadress().equals(ap.getIpadress())) {
+					s = "IP not valid";
+					return s;
 				} else {
-					s = "user not found";
+					s = "is valid";
+					Utilisateur user = userrepo.getById(apiToValidate.getUtilisateur().getId());
+
+					if (user != null) {
+						String login = user.getUsername();
+						String psw = user.getPassword();
+
+						// auth method
+
+						return s = (login+psw);
+					} else {
+						s = "user not found";
+					}
 				}
 			}
-		}
 
-		else {
-			s = "you can't access";
+			else {
+				return s = "you can't access";
+			}
+			return s;
+
+		} else {
+			return "apikey is not found in the database";
+
 		}
-		return s;
 
 	}
-
 }

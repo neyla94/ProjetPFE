@@ -62,5 +62,10 @@ public class ApiKey {
 			this.ipadress = ipadress;
 			this.apikeyValue = apikeyValue;
 		}
+		@Override
+		public String toString() {
+			return "ApiKey [id=" + id + ", ipadress=" + ipadress + ", apikeyValue=" + apikeyValue + ", utilisateur="
+					+ utilisateur + "]";
+		}
 		
 }

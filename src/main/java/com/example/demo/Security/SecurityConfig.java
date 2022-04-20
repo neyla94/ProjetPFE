@@ -14,8 +14,11 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 
 import com.example.demo.filter.CustomAuthenticationFilter;
 
+import lombok.AllArgsConstructor;
+
 @Configuration
 @EnableWebSecurity
+@AllArgsConstructor
 public class SecurityConfig extends WebSecurityConfigurerAdapter {
 //	private static final String GET ;
 //	private static final String POST ;
@@ -34,23 +37,16 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 	protected void configure(HttpSecurity http) throws Exception {
 
 		http.csrf().disable()
-				// .exceptionHandling().authenticationEntryPoint(jwtUnAuthorizedResponseAuthenticationEntryPoint).and()
 				.sessionManagement().sessionCreationPolicy(SessionCreationPolicy.STATELESS).and()
 				.authorizeRequests()
-	            .antMatchers("/login/**").permitAll()
+	            .antMatchers("/validateApikey").permitAll()
 				.antMatchers("/api/**").authenticated()
-//				.antMatchers( "/api/utilisateur/effectuer/**").hasAnyAuthority("ROLE_APIKEY1")
 				.anyRequest().authenticated();
 
 		http.addFilter(new CustomAuthenticationFilter(authenticationManagerBean()));
 
-//		http   .csrf().disable();
-		// http.sessionManagement().sessionCreationPolicy(SessionCreationPolicy.STATELESS);
-//           http.authorizeRequests().anyRequest().authenticated();
-//           http.authorizeRequests().antMatchers(GET, "/api/utilisateur/**").hasAnyAuthority("ROLE_UTILISATEUR");
-//           http.authorizeRequests().antMatchers(POST, "/api/utilisateur/effectuer/**").hasAnyAuthority("ROLE_APIKEY1");
-//	http.addFilter(new CustomAuthenticationFilter(authenticationManagerBean()));
-//		   
+
+		   
 
 	}
 
